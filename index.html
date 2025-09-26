@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sasha Sommerfeldt, PhD</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-size: 17px;
+            line-height: 1.47;
+            color: #1d1d1f;
+            background: #fbfbfd;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 120px 0 100px;
+            background: linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%);
+        }
+
+        .header h1 {
+            font-size: 56px;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            color: #1d1d1f;
+            margin-bottom: 8px;
+        }
+
+        .header .title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #86868b;
+            margin-bottom: 20px;
+        }
+
+        .header .description {
+            font-size: 21px;
+            font-weight: 400;
+            color: #1d1d1f;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.381;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(251, 251, 253, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 52px;
+            gap: 40px;
+        }
+
+        .nav a {
+            color: #1d1d1f;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 400;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav a:hover {
+            opacity: 0.7;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .section {
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section h2 {
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: -0.003em;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 21px;
+            line-height: 1.381;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .skill-category {
+            text-align: center;
+        }
+
+        .skill-category h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 8px;
+            font-weight: 400;
+        }
+
+        .skill-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .project {
+            display: block;
+            margin-bottom: 60px;
+        }
+
+
+
+        .project-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .project-info h3 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin: 0;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #f5f5f7;
+            border-radius: 20px;
+            color: #1d1d1f;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .github-link:hover {
+            background: #e8e8ed;
+            transform: translateY(-2px);
+        }
+
+        .github-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .project-role {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 20px;
+        }
+
+        .project-description {
+            font-size: 19px;
+            line-height: 1.421;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+        }
+
+        .project-impact {
+            font-size: 17px;
+            color: #86868b;
+            margin-bottom: 30px;
+            line-height: 1.47;
+        }
+
+        .project-impact strong {
+            color: #1d1d1f;
+            font-weight: 600;
+        }
+
+        .project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .project-skill {
+            background: #f5f5f7;
+            color: #86868b;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .project-visual {
+            display: none;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 21px;
+            color: #1d1d1f;
+            margin-bottom: 40px;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            color: #007aff;
+            text-decoration: none;
+            font-size: 19px;
+            font-weight: 400;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-link:hover {
+            opacity: 0.7;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 0 40px;
+            color: #86868b;
+            font-size: 14px;
+            border-top: 1px solid #d2d2d7;
+            margin-top: 120px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1068px) {
+            .container {
+                padding: 0 40px;
+            }
+
+            .header h1 {
+                font-size: 48px;
+            }
+
+            .section h2 {
+                font-size: 40px;
+            }
+
+
+        }
+
+        @media (max-width: 734px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            .header {
+                padding: 80px 0 60px;
+            }
+
+            .header h1 {
+                font-size: 40px;
+            }
+
+            .header .description {
+                font-size: 19px;
+            }
+
+            .main-content {
+                padding: 60px 0;
+            }
+
+            .section {
+                margin-bottom: 80px;
+            }
+
+            .section h2 {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .nav-content {
+                gap: 30px;
+                height: 48px;
+            }
+
+            .nav a {
+                font-size: 16px;
+            }
+
+            .about-content p {
+                font-size: 19px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 40px;
+            }
+
+            .project-info h3 {
+                font-size: 28px;
+            }
+
+            .project-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-content {
+                gap: 20px;
+            }
+
+            .nav a {
+                font-size: 15px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Sasha Sommerfeldt, PhD</h1>
+            <p class="title">Data Scientist & Human Factors Researcher</p>
+            <p class="description">Translating human behavior into actionable business insights through advanced analytics, survey and experimental design</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="nav">
+            <div class="nav-content">
+                <a href="#about">About</a>
+                <a href="#skills">Expertise</a>
+                <a href="#projects">Work</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2>About</h2>
+                <div class="about-content">
+                    <p>I partner with organizations to solve complex problems using <span class="highlight">advanced analytics, experimental design, and behavioral science</span>. With a PhD from UW-Madison and experience at Fortune 100 companies, I extract meaningful patterns from diverse data sources ranging from multimodal data from biometric sensors, custom surveys, and large-scale behavioral datasets.</p>
+                    
+                    <p>My background combines <span class="highlight">rigorous research</span> with <span class="highlight">business impact</span>. I've led teams of >20 junior researchers, secured $200K+ in competitive research funding, and translated behavioral insights into strategic recommendations at Procter & Gamble.</p>
+                    
+                    <p>I'm passionate about <span class="highlight">wearable health technology</span> and building data systems that put people first—whether that's improving user experience through behavioral insights or ensuring responsible AI development that centers human wellbeing.</p>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="section">
+                <h2>Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <ul class="skill-list">
+                            <li>Python</li>
+                            <li>R</li>
+                            <li>SQL</li>
+                            <li>Git</li>
+                            <li>Shell Scripting</li>
+                            <li>Databricks</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Analytics</h3>
+                        <ul class="skill-list">
+                            <li>Multilevel Modeling</li>
+                            <li>A/B Testing</li>
+                            <li>Sampling</li>
+                            <li>Missing Data Imputation</li>
+                            <li>Factor Analysis & Psychometrics</li>
+                            <li>Time-Series Analysis</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Research</h3>
+                        <ul class="skill-list">
+                            <li>UX Research</li>
+                            <li>Survey Design</li>
+                            <li>Physiological Data</li>
+                            <li>Behavioral Analysis</li>
+                            <li>Measurement Innovation</li>
+                            <li>Science Communication</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Leadership</h3>
+                        <ul class="skill-list">
+                            <li>Team Management</li>
+                            <li>Project Leadership</li>
+                            <li>Cross-Functional Collaboration</li>
+                            <li>Strategic Planning</li>
+                            <li>Agile Methodologies</li>
+                            <li>Stakeholder Alignment</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <h2>Work</h2>
+                <div class="projects-grid">
+                    <div class="project">
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3>Survey Research 📊</h3>
+                                <a href="https://github.com/sashasomms/surveyUtils" class="github-link" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <p class="project-role">Senior Data Scientist</p>
+                            <p class="project-description">Built an end-to-end R package for survey research workflows. Transforms messy survey data into analysis-ready datasets with automated cleaning, standardized instrument scoring, and quality control checks.</p>
+                            <p class="project-impact"><strong>Impact:</strong> Reduced project setup from hours to minutes, standardized team workflows, automated complete pipeline from SurveyMonkey to final analysis</p>
+                            <div class="project-skills">
+                                <span class="project-skill">R</span>
+                                <span class="project-skill">API Integration</span>
+                                <span class="project-skill">System Design</span>
+                                <span class="project-skill">Survey Research</span>
+                            </div>
+                        </div>
+                        <div class="project-visual"></div>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3>Digital Health Research 🫀 📱 🧠</h3>
+                                <a href="https://github.com/sashasomms/scim" class="github-link" target="_blank" rel="noopener noreferrer">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                            </div>
+                            <p class="project-role">Principal Investigator</p>
+                            <p class="project-description">Designed and led a randomized clinical trial investigating how screen time and mindfulness interventions influence physiological-psychological stress synchrony. Findings: tighter coupling predicted higher wellbeing and lower inflammation.</p>
+                            <p class="project-impact"><strong>Impact:</strong> $140K+ funding, demonstrated health prediction models, informed wearable product strategy</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Python</span>
+                                <span class="project-skill">Experimental Design</span>
+                                <span class="project-skill">Physiological Timeseries Analysis</span>
+                                <span class="project-skill">Team Leadership</span>
+                            </div>
+                        </div>
+                        <div class="project-visual"></div>
+                    </div>
+
+                    <div class="project">
+                        <div class="project-info">
+                            <div class="project-header">
+                                <h3>Marketing Analytics 📈</h3>
+                            </div>
+                            <p class="project-role">Senior Data Scientist</p>
+                            <p class="project-description">Co-Developed Marketing Mix Models using advanced statistical methods to optimize spend across brands and channels.</p>
+                            <p class="project-impact"><strong>Impact:</strong> Enhanced forecast accuracy, optimize allocation of ad spend, received Data & Analytics Excellence and Constructively Disrupt Decision-Making Awards</p>
+                            <div class="project-skills">
+                                <span class="project-skill">Python</span>
+                                <span class="project-skill">SQL</span>
+                                <span class="project-skill">Hierarchical/Multilevel Modeling</span>
+                                <span class="project-skill">Time Series</span>
+                            </div>
+                        </div>
+                        <div class="project-visual"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <h2>Contact</h2>
+                <div class="contact-content">
+                    <p>Data Science, Human Factors, Quantitative UX Research</p>
+                    <div class="contact-links">
+                        <a href="https://www.linkedin.com/in/sashasommerfeldt" class="contact-link">LinkedIn</a>
+                        <a href="https://github.com/sashasomms" class="contact-link">GitHub</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2025 Sasha Sommerfeldt</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
